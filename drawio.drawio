@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" modified="2023-05-30T04:46:29.593Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="z1rzrPtC4luHMkltIibu" version="21.3.5" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1434" dy="756" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="dlkIKbOYn3F9blHqnLT8-0" target="dlkIKbOYn3F9blHqnLT8-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-0" value="Auth Button/ Token" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="80" y="80" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="dlkIKbOYn3F9blHqnLT8-3" target="dlkIKbOYn3F9blHqnLT8-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-3" value="/token" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="250" y="80" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="dlkIKbOYn3F9blHqnLT8-5" target="dlkIKbOYn3F9blHqnLT8-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="dlkIKbOYn3F9blHqnLT8-5" target="dlkIKbOYn3F9blHqnLT8-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="dlkIKbOYn3F9blHqnLT8-5" target="dlkIKbOYn3F9blHqnLT8-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="790" y="125" />
+              <mxPoint x="790" y="410" />
+              <mxPoint x="485" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-5" value="使用username, password撈取user db , 若username, password都正確則通過回傳token" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="450" y="63.75" width="240" height="122.5" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-7" value="password使用bcrypt進行hash加密" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="340" y="230" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-18" value="token使用username &amp;amp; expires_delta進行jwt加密回傳" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="560" y="230" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dlkIKbOYn3F9blHqnLT8-23" value="可以使用授權api&lt;br&gt;&lt;div style=&quot;color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;Depends(&lt;span style=&quot;color: #9cdcfe;&quot;&gt;oauth2_scheme&lt;/span&gt;)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="354" y="350" width="120" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

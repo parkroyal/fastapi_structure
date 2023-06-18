@@ -1,0 +1,5 @@
+fastapi_env/
+*.xlsx
+logs/
+*.log
+*.pyc

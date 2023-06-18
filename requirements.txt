@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+pandas
+numpy
+SQLAlchemy==1.4.45
+mysql==0.0.3
+mysql-connector==2.2.9
+mysql-connector-python==8.0.31
+mysql-client
+python-dateutil==2.8.2
+pydantic
+python-jose[cryptography]
+python-multipart
+passlib[bcrypt]
+openpyxl
