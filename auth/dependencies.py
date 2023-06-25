@@ -1,9 +1,14 @@
 from sqlalchemy.orm import Session
-from . import models, schemas, database
+from db import database
 from datetime import datetime, timedelta
 from typing import Union
 from jose import JWTError, jwt
-from auth.crypt import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, pwd_context
+from auth import models, schemas
+from auth.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, pwd_context
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 # 讀取user table 資料
@@ -21,9 +26,9 @@ def create_user(db: Session, user: schemas.User, password):
 
 
 # Insert a user row
-def create_user_row(newuser: models.User):
+def model_create_user(user: models.User):
     db = database.SessionLocal()
-    db.add(newuser)
+    db.add(user)
     db.commit()
     db.close()
 
@@ -62,3 +67,25 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+
+async def get_current_user(
+    db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
+):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = schemas.TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    user = get_user(db, username=token_data.username)
+    if user is None:
+        raise credentials_exception
+    return user

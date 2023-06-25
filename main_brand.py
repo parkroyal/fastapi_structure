@@ -16,7 +16,15 @@ from sql_app.models import User as DB_User  # 導入sql連線資訊
 from sql_app.schemas import User, UserInDB, Token, TokenData  # Pydantic Model
 from sql_app.crud import get_user, create_user, create_user_row, get_db
 from sqlalchemy.orm import Session
-from auth import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, get_password_hash, verify_password, authenticate_user, create_access_token
+from auth import (
+    SECRET_KEY,
+    ALGORITHM,
+    ACCESS_TOKEN_EXPIRE_MINUTES,
+    get_password_hash,
+    verify_password,
+    authenticate_user,
+    create_access_token,
+)
 
 # Create the database tables
 Base.metadata.drop_all(bind=engine)
@@ -38,7 +46,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 app = FastAPI()
 
 
-async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+async def get_current_user(
+    db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
+):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -60,7 +70,9 @@ async def get_current_user(db: Session = Depends(get_db), token: str = Depends(o
 
 # 登入認證
 @app.post("/token", response_model=Token, tags=["auth"])
-def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
+def login_for_access_token(
+    db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
+):
     user = get_user(db, username=form_data.username)  # 從db拿取該username資料
     # user = authenticate_user(fake_users_db, form_data.username, form_data.password)
     if user:  # 確認密碼是否正確
@@ -80,7 +92,9 @@ def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2Passw
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
     return {"access_token": access_token, "token_type": "bearer"}
 
 
@@ -100,7 +114,11 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
 
 # create a nuser users
 @app.post("/users/", tags=["User", "Auth"])
-def create_user(user: User, password: str = Body(...), current_user: User = Depends(get_current_user)):  # # 認證(最高權限才能創建新user)
+def create_user(
+    user: User,
+    password: str = Body(...),
+    current_user: User = Depends(get_current_user),
+):  # # 認證(最高權限才能創建新user)
     # 將密碼加密(使用Hash)
     user_dict = user.dict()
     hashed_password = get_password_hash(password)
